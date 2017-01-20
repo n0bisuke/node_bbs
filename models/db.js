@@ -1,8 +1,9 @@
 'use strict'
 
 const mysql      = require('mysql');
-const connection = mysql.createConnection();
-connection.connect(require('../db_config'));
+const connection = mysql.createConnection(require('../db_config'));
+connection.connect();
+// connection.end();
 
 module.exports = (sql, cb) => {
     connection.query(sql, (err, rows, fields) => {

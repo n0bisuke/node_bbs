@@ -7,6 +7,8 @@ const sessionHandler = new SessionHandler();
 const loginPage = require('./pages/login');
 const mainPage = require('./pages/main');
 const insertPage = require('./pages/insert');
+const updatePage = require('./pages/update');
+const deletePage = require('./pages/delete');
 const qs = require('querystring');
 const login = {
     user: "n0bisuke",
@@ -55,23 +57,56 @@ http.createServer((req, res) => {
 
     //トップページ
     if (req.url === '/' && req.method === 'GET') {
-        // if (!session.name) {
-        //     res.writeHead(200, {'Content-Type': 'text/html'});
-        //     res.end('ログインしてください -> <a href="/login">ログインページ</a>');
-        //     return;
-        // }
+        if (!session.name) {
+            res.writeHead(200, {'Content-Type': 'text/html'});
+            res.end('ログインしてください -> <a href="/login">ログインページ</a>');
+            return;
+        }
         mainPage.get(req,res,session);
         return;
     }
 
-    //トップページ
+    //insert
     if (req.url === '/insert' && req.method === 'POST') {
-        // if (!session.name) {
-        //     res.writeHead(200, {'Content-Type': 'text/html'});
-        //     res.end('ログインしてください -> <a href="/login">ログインページ</a>');
-        //     return;
-        // }
+        if (!session.name) {
+            res.writeHead(200, {'Content-Type': 'text/html'});
+            res.end('ログインしてください -> <a href="/login">ログインページ</a>');
+            return;
+        }
         insertPage.post(req,res,session);
+        return;
+    }
+
+    //delete
+    if (url.parse(req.url).pathname === '/delete' && req.method === 'GET') {
+        if (!session.name) {
+            res.writeHead(200, {'Content-Type': 'text/html'});
+            res.end('ログインしてください -> <a href="/login">ログインページ</a>');
+            return;
+        }    
+        deletePage.get(req,res,session);
+        return;
+    }
+
+    //update
+    if (url.parse(req.url).pathname === '/update' && req.method === 'GET') {
+        if (!session.name) {
+            res.writeHead(200, {'Content-Type': 'text/html'});
+            res.end('ログインしてください -> <a href="/login">ログインページ</a>');
+            return;
+        }
+        updatePage.get(req,res,session);
+        return;
+    }
+
+    //update
+    if (url.parse(req.url).pathname === '/update' && req.method === 'POST') {
+        if (!session.name) {
+            res.writeHead(200, {'Content-Type': 'text/html'});
+            res.end('ログインしてください -> <a href="/login">ログインページ</a>');
+            return;
+        }
+        updatePage.post(req,res,session);
         return;
     }
 
